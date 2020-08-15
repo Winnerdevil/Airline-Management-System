@@ -3,7 +3,8 @@ import java.util.*;
 
 class ObjectFileHandler {
 
-	// Function to read the Passenger detail from given file and return in form of ArrayList.
+	// Function to read the Passenger detail from given file and return 
+	// in form of ArrayList.
 	public static ArrayList<Passenger> readFromFile(String filePath) {
 		
 		ArrayList<Passenger> passInfo = null;
@@ -18,9 +19,9 @@ class ObjectFileHandler {
 			fin.close();
 		} catch(FileNotFoundException e) {
 			System.out.println("FileNotFoundException");
-			e.printStackTrace();
+			return null;
 		} catch(Exception e) {
-			e.printStackTrace();
+			return null;
 		}
 
 		return passInfo;

@@ -1,7 +1,8 @@
 import java.io.*;
 import java.util.*;
 
-// Airport Manager update Annoucement, and maintain all checking for the passenger.
+// Airport Manager update Annoucement, and maintain all checking 
+// for the passenger.
 public class AirportManager{
 
 	// It find the index of the given passenger in the ArrayList.
@@ -24,8 +25,10 @@ public class AirportManager{
 		ArrayList<Passenger> passengerList = ObjectFileHandler.readFromFile("passengerinfo.txt");
 		
 		System.out.println("\n---------------------------ANNOUNCEMENTS-----------------------------");
-		for(int i = 0; i < passengerList.size(); ++i) {
-			System.out.println("\n" + passengerList.get(i).name +" please verify your "+ passengerList.get(i).level + " check");
+		if (passengerList != null) {
+			for(int i = 0; i < passengerList.size(); ++i) {
+				System.out.println("\n" + passengerList.get(i).name +" please verify your "+ passengerList.get(i).level + " check");
+			}
 		}
 		System.out.println("---------------------------------------------------------------------");
 		
@@ -77,11 +80,13 @@ public class AirportManager{
 			if(l != -1) {
 				passengerList.remove(l);
 			}
+
 			ObjectFileHandler.writeToFile("passengerinfo.txt", passengerList);
 			return true;
 		}
 
-		// if it doesn't pass the checking then return false and if the passenger is not present then inserto into the passenger info
+		// if it doesn't pass the checking then return false and if 
+		// the passenger is not present then insert into the passenger info
 		ArrayList<Passenger> passengerList = ObjectFileHandler.readFromFile("passengerinfo.txt");
 		if(searchPassenger(P.passportID) == -1) {	
 			passengerList = new ArrayList<Passenger>();
@@ -90,8 +95,7 @@ public class AirportManager{
 			passengerList.get(searchPassenger(P.passportID)).level = P.level;
 		}
 		
-		ObjectFileHandler.appendToFile("passengerinfo.txt", passengerList);
-		
+		ObjectFileHandler.writeToFile("passengerinfo.txt", passengerList);
 		
 		return false;
 	}
@@ -100,8 +104,7 @@ public class AirportManager{
 		if(L.hasMetalObject == false) {
 			L.hasSticker = true;
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
@@ -124,8 +127,7 @@ public class AirportManager{
 
 			if(choice == 1) {
 				return true;
-			}
-			else {
+			} else {
 				return false;
 			}
 		} else {

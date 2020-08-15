@@ -3,7 +3,7 @@ import java.util.*;
 
 // Store the Passenger Detail
 // Passenger 'Has-A' Entity (Aggregation)
-class Passenger implements Serializable{
+class Passenger implements Serializable {
 
 	int passportID;
 	String name;
