@@ -7,7 +7,7 @@ public class Airport {
 	
 	public static void airportManagerStep(Passenger P, Luggage L) {
 		// proceeding the passenger to Airport manager to verify its detail and to check for the security.
-		Boolean passed = AirportManager.checkAll(P, L);
+		boolean passed = AirportManager.checkAll(P, L);
 		if (passed) {
 			System.out.println("Successfully passed all Checking");
 		} else {
@@ -18,14 +18,14 @@ public class Airport {
 		System.out.println("Thanks For visiting.");
 	}
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		Scanner Scan = new Scanner(System.in);
 		
 		// ------- Taking Information from User -------- 
 
-		// if the user has not passed, then if it came again.
+		// if the user has not passed, and if it came again.
 		System.out.println("Old user?(1 YES or any other key for NO):");
-		Boolean isOld = Scan.next().equals("1");
+		boolean isOld = Scan.next().equals("1");
 
 		if (isOld) {
 			ArrayList<Passenger> infoLists = ObjectFileHandler.readFromFile("passengerinfo.txt");
@@ -135,13 +135,8 @@ public class Airport {
 		// ------- Taking Information end --------
  
 		boolean hasMetalObject;
-		
-		if(metalOb.equals("1")) {
-			hasMetalObject = true;
-		}
-		else {
-			hasMetalObject = false;
-		}
+
+		hasMetalObject = metalOb.equals("1");
 
 		// System.out.println("name: " + name + " age: " + age + " weight: " + weight + " passportID: " + passportID + " metalOb: " + hasMetalObject);
 		Passenger P = new Passenger(passportID, weight, 

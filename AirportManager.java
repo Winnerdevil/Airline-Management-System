@@ -26,8 +26,8 @@ public class AirportManager{
 		
 		System.out.println("\n---------------------------ANNOUNCEMENTS-----------------------------");
 		if (passengerList != null) {
-			for(int i = 0; i < passengerList.size(); ++i) {
-				System.out.println("\n" + passengerList.get(i).name +" please verify your "+ passengerList.get(i).level + " check");
+			for (Passenger passenger : passengerList) {
+				System.out.println("\n" + passenger.name + " please verify your " + passenger.level + " check");
 			}
 		}
 		System.out.println("---------------------------------------------------------------------");
@@ -43,7 +43,7 @@ public class AirportManager{
 		int flag = 0;
 
 		// X-ray the lugugage
-		if(XRAY(L) == true) {
+		if(XRAY(L)) {
 			P.level++;
 			System.out.println("Passed X-Ray Check");
 		} else {
@@ -52,7 +52,7 @@ public class AirportManager{
 		}
 		
 		// Check the lugugage 
-		if(flag == 0 && bCheckIn(L) == true) {
+		if(flag == 0 && bCheckIn(L)) {
 			P.level++;
 			System.out.println("Passed Baggage Check-In");
 		} else if(flag == 0) {
@@ -61,7 +61,7 @@ public class AirportManager{
 		}
 		
 		// Security Check (checking the baggage for containing metal object)
-		if(flag == 0 && securityCheck(P) == true) {
+		if(flag == 0 && securityCheck(P)) {
 			P.level++;
 			System.out.println("Passed Security Check");
 		} else if(flag == 0) {
@@ -70,7 +70,7 @@ public class AirportManager{
 		}
 		
 		// Flight Check (checking for the Boarding pass and stamp)
-		if(flag == 0 && flightCheck(P) == true) {
+		if(flag == 0 && flightCheck(P)) {
 			P.level++;
 			System.out.println("Passed Flight Check-In");
 
@@ -78,6 +78,7 @@ public class AirportManager{
 			int l = searchPassenger(P.passportID);
 
 			if(l != -1) {
+				assert passengerList != null;
 				passengerList.remove(l);
 			}
 
@@ -92,6 +93,7 @@ public class AirportManager{
 			passengerList = new ArrayList<Passenger>();
 			passengerList.add(P);
 		} else {
+			assert passengerList != null;
 			passengerList.get(searchPassenger(P.passportID)).level = P.level;
 		}
 		
@@ -101,7 +103,7 @@ public class AirportManager{
 	}
 	// X-raying the Luggage if it doesn't have any metalObject
 	public static boolean XRAY(Luggage L){
-		if(L.hasMetalObject == false) {
+		if(!L.hasMetalObject) {
 			L.hasSticker = true;
 			return true;
 		} else {
@@ -112,7 +114,7 @@ public class AirportManager{
 	// If in baggage CheckIn It does not have sticker then checkIn fails
 	public static boolean bCheckIn(Luggage L){
 
-		if(L.hasSticker == false) {
+		if(!L.hasSticker) {
 			System.out.println("Not have an Sticker. Repeat Procedure!!!\n");
 			return false;
 		}
@@ -125,11 +127,7 @@ public class AirportManager{
 			Scanner sc = new Scanner(System.in);
 			int choice = sc.nextInt();
 
-			if(choice == 1) {
-				return true;
-			} else {
-				return false;
-			}
+			return choice == 1;
 		} else {
 			return true;
 		}
@@ -137,7 +135,7 @@ public class AirportManager{
 
 	// Security Check (checking for containing metal object)
 	public static boolean securityCheck(Passenger P) {
-		if(P.baggage.hasMetalObject == false) {
+		if(!P.baggage.hasMetalObject) {
 			P.stamped = true;
 			P.hasBoardingPass = true;
 			return true;		
@@ -150,11 +148,7 @@ public class AirportManager{
 	// Flight Check (checking for the Boarding pass and stamp)
 	public static boolean flightCheck(Passenger P) {
 
-		if(P.hasBoardingPass == true && P.stamped == true) {
-			// System.out.println("Passed Flight Check-In\n");
-			return true;
-		} else {
-			return false;
-		}
+		// System.out.println("Passed Flight Check-In\n");
+		return P.hasBoardingPass && P.stamped;
 	}
 }
