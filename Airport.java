@@ -23,7 +23,7 @@ public class Airport {
 		
 		// ------- Taking Information from User -------- 
 
-		// if the user has not passed, then if it came again.
+		// if the user has not passed, and if it came again.
 		System.out.println("Old user?(1 YES or any other key for NO):");
 		Boolean isOld = Scan.next().equals("1");
 
